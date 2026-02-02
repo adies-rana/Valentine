@@ -1,1 +1,282 @@
-﻿<!DOCTYPE html> <html lang="en"> <head>     <meta charset="UTF-8">     <title>Valentine 💖</title>     <style>         body {             font-family: Arial, sans-serif;             background: linear-gradient(to right, #ff758c, #ff7eb3);             text-align: center;             padding: 50px;             color: white;             overflow: hidden;         }          .box {             background: rgba(255, 255, 255, 0.2);             padding: 30px;             border-radius: 15px;             display: inline-block;             position: relative;         }          button {             padding: 10px 20px;             margin: 10px;             border: none;             border-radius: 8px;             font-size: 16px;             cursor: pointer;         }          .yes {             background: #4CAF50;             color: white;         }          .no {             background: #f44336;             color: white;             position: absolute;         }          .option {             background: #ffffff;             color: #ff4d6d;         }          img {             width: 250px;             margin-top: 20px;             border-radius: 15px;         }     </style> </head> <body>  <div class="box" id="content">     <h1>Will you be my Valentine? 💘</h1>     <button class="yes" onclick="step1()">Yes</button>     <button class="no" id="noBtn">No</button> </div>  <script> const noBtn = document.getElementById("noBtn");  noBtn.addEventListener("mouseover", moveNo); noBtn.addEventListener("touchstart", moveNo);  function moveNo() {     const x = Math.random() * 70;     const y = Math.random() * 70;     noBtn.style.left = x + "%";     noBtn.style.top = y + "%"; }  function step1() {     document.getElementById("content").innerHTML = `         <h1>Pakka? 😏</h1>         <button class="yes" onclick="step2()">Yes</button>     `; }  function step2() {     document.getElementById("content").innerHTML = `         <h1>I love you kitna Sara? ❤️</h1>         <button class="option" onclick="wrong()">bht saraaaa</button><br>         <button class="option" onclick="correct()">bhhhhhhhhhhhttttt saraaaaaaa</button><br>         <button class="option" onclick="wrong()">jitna tera</button>     `; }  function wrong() {     alert("Galat jawab 😝 Dobara socho!"); }  function correct() {     document.getElementById("content").innerHTML = `         <h1>Congratulations! 🎉💖</h1>         <h2>You are officially my Valentine 🥰</h2>         <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" alt="Dancing Dog">     `; } </script>  </body> </html>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        background: #ffd1dc; /* pastel pink */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        flex-direction: column;
+        text-align: center;
+        color: #ff0066;
+    }
+
+
+    h1 {
+        font-size: 3em;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px #ff99cc;
+    }
+
+
+    button {
+        font-size: 1.5em;
+        padding: 15px 30px;
+        margin: 10px;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: transform 0.2s;
+        background: #ff99cc;
+        color: white;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        position: relative;
+    }
+
+
+    button:hover {
+        transform: scale(1.1);
+        background: #ff66b2;
+    }
+
+
+    .hidden { display: none; }
+
+
+    .heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: red;
+        transform: rotate(-45deg);
+        animation: float 6s linear infinite;
+    }
+    .heart::before,
+    .heart::after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: red;
+        border-radius: 50%;
+    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: 10px; top: 0; }
+
+
+    @keyframes float {
+        0% { transform: translateY(100vh) rotate(-45deg); }
+        100% { transform: translateY(-100vh) rotate(-45deg); }
+    }
+
+
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #ff69b4;
+        animation: fall 3s linear infinite;
+    }
+
+
+    @keyframes fall {
+        0% { transform: translateY(-10px) rotate(0deg); }
+        100% { transform: translateY(100vh) rotate(360deg); }
+    }
+
+
+    .chow {
+        width: 150px;
+        animation: dance 1s infinite;
+        position: absolute;
+        bottom: 50px;
+        left: -200px;
+    }
+
+
+    @keyframes dance {
+        0% { transform: translateY(0) rotate(0deg); }
+        25% { transform: translateY(-20px) rotate(-10deg); }
+        50% { transform: translateY(0) rotate(10deg); }
+        75% { transform: translateY(-20px) rotate(-10deg); }
+        100% { transform: translateY(0) rotate(0deg); }
+    }
+
+
+    .message {
+        font-size: 2em;
+        margin-top: 20px;
+        color: #ff0066;
+        text-shadow: 1px 1px #fff;
+    }
+</style>
+</head>
+<body>
+
+
+<!-- Floating Hearts -->
+<script>
+    for (let i = 0; i < 20; i++) {
+        let heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+        heart.style.background = ['#ff66b2','#ff99cc','#ff3399'][Math.floor(Math.random()*3)];
+        document.body.appendChild(heart);
+    }
+</script>
+
+
+<!-- Questions -->
+<div id="q1">
+    <h1>Will you be my Valentine?</h1>
+    <button onclick="nextQ('yes')">Yes</button>
+    <button id="no1" onclick="noClick(this)">No</button>
+</div>
+
+
+<div id="q2" class="hidden">
+    <h1>Pkka?</h1>
+    <button onclick="nextQ('yes2')">Yes</button>
+    <button id="no2" onclick="noClick(this)">No</button>
+</div>
+
+
+<div id="q3" class="hidden">
+    <h1>I love you kitna Sara?</h1>
+    <button onclick="checkAnswer(this)">Bht Saraaaa</button>
+    <button onclick="checkAnswer(this)">Bhhhhhhhhhhhttttt Saraaaaaaa</button>
+    <button onclick="checkAnswer(this)">Jitna tera</button>
+</div>
+
+
+<div id="congrats" class="hidden">
+    <h1>🎉 Congratulations! 🎉</h1>
+    <img src="https://i.imgur.com/0hZr7hP.png" class="chow" id="chow" alt="Dancing Chow Chow">
+    <div class="message">You are the best thing that happened to me in my life so be my Valentine till our teeths fall off... Love you bibi ❤️</div>
+</div>
+
+
+<script>
+function nextQ(step){
+    createHeart();
+    if(step === 'yes'){
+        document.getElementById('q1').classList.add('hidden');
+        document.getElementById('q2').classList.remove('hidden');
+    } else if(step === 'yes2'){
+        document.getElementById('q2').classList.add('hidden');
+        document.getElementById('q3').classList.remove('hidden');
+    }
+}
+
+
+// Escaping "No" button
+function noClick(button){
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 50);
+    button.style.position = 'absolute';
+    button.style.left = x + 'px';
+    button.style.top = y + 'px';
+}
+
+
+// Checking answer
+function checkAnswer(button){
+    createHeart();
+    if(button.innerText === "Bhhhhhhhhhhhttttt Saraaaaaaa"){
+        document.getElementById('q3').classList.add('hidden');
+        document.getElementById('congrats').classList.remove('hidden');
+        startConfetti();
+        moveChow();
+    } else {
+        alert("Try again! ❤️");
+    }
+}
+
+
+// Heart on click
+function createHeart(){
+    let heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (3 + Math.random() * 3) + 's';
+    heart.style.background = ['#ff66b2','#ff99cc','#ff3399'][Math.floor(Math.random()*3)];
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}
+
+
+// Confetti
+function startConfetti(){
+    for(let i=0;i<100;i++){
+        let conf = document.createElement('div');
+        conf.className = 'confetti';
+        conf.style.left = Math.random()*100 + 'vw';
+        conf.style.background = ['#ff66b2','#ff99cc','#ff3399','#ff0066','#ff33aa'][Math.floor(Math.random()*5)];
+        conf.style.animationDuration = (2 + Math.random()*2) + 's';
+        document.body.appendChild(conf);
+        setTimeout(()=>conf.remove(),3000);
+    }
+}
+
+
+// Move Chow Chow across screen & play tune
+function moveChow(){
+    let chow = document.getElementById('chow');
+    let pos = -200;
+    let id = setInterval(frame,10);
+
+
+    // Play simple tune
+    playTune();
+
+
+    function frame(){
+        if(pos > window.innerWidth){
+            clearInterval(id);
+        } else {
+            pos += 2;
+            chow.style.left = pos + 'px';
+        }
+    }
+}
+
+
+// Simple tune using Web Audio API
+function playTune() {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AudioContext();
+
+
+    const notes = [261.63, 329.63, 392.00, 523.25]; // C4, E4, G4, C5
+    let time = ctx.currentTime;
+
+
+    notes.forEach((freq, index) => {
+        const oscillator = ctx.createOscillator();
+        oscillator.type = 'triangle';
+        oscillator.frequency.setValueAtTime(freq, time + index * 0.5);
+
+
+        const gainNode = ctx.createGain();
+        gainNode.gain.setValueAtTime(0.2, time + index * 0.5);
+
+
+        oscillator.connect(gainNode).connect(ctx.destination);
+        oscillator.start(time + index * 0.5);
+        oscillator.stop(time + index * 0.5 + 0.4);
+    });
+}
+</script>
+
+
+</body>
+</html>
